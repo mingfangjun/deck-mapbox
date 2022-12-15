@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Add custom icons with Markers</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!-- <script src='js/mapbox-gl.js'></script>
+    <link href='css/mapbox-gl.css' rel='stylesheet' /> -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+.marker {
+    display: block;
+    border: none;
+    /* border-radius: 50%; */
+    cursor: pointer;
+    padding: 0;
+    background: url("https://lxqjss.github.io/img/loc.png");
+    /* background: url("img/24px.png"); */
+    width:20px;
+    height:20px;
+    padding-left: 5px;
+}
+.marker p{position: absolute;width: 10px;height: 10px;border-radius:50%;animation: myfirst 1.5s  infinite;box-shadow: 0px 0px 1px #009FD9; }  
+        /* .marker span{position: absolute;display:block;width: 10px;height: 10px;border-radius:50%;animation: myfirst 1.5s  infinite;box-shadow: 0px 0px 1px #009FD9; animation-delay: 0.5s;}   */
+        @keyframes myfirst{  
+            20% {transform: scale(2);}  
+            40% {transform: scale(3);}  
+            60% {transform: scale(4);}  
+            80% {transform: scale(5);}  
+            100% {transform: scale(6);}  
+        }
+</style>
+
+<div id='map'></div>
+
+<script>
+mapboxgl.accessToken = "pk.eyJ1IjoibWluZ2ZhbmdqdW4iLCJhIjoiY2t3bjlrZGt3MmpscjJ4bnNoZzN0aWQyeiJ9.Q31o1wkz_qwcR1TYBSqTeQ";
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/basic-v9',
+    // style: 'http://localhost:8088/tile/mapbox/style/darkStyle2.json',
+    center: [115.017, 36.457],
+    zoom: 3
+});
+var geojson = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "杭州"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.1904296875,
+          30.391830328088137
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7b7e00",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "name": "上海"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.44287109374999,
+          31.16580958786196
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "南京"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.828125,
+          32.18491105051798
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "合肥"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.11975097656249,
+          31.812229022640704
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "北京"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.45507812500001,
+          40.07807142745009
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "广州"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.35693359375,
+          23.160563309048314
+        ]
+      }
+    }
+  ]
+};
+
+
+
+geojson.features.forEach(function(marker) {
+    var el = document.createElement('div');
+    el.className = 'marker';
+
+    var el1 = document.createElement('p');
+    el.appendChild(el1); 
+    var el2 = document.createElement('span');
+    el1.appendChild(el2); 
+
+    el.addEventListener('click', function() {
+        window.alert(marker.properties.name);
+    });
+
+    new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
+});
+</script>
+
+</body>
+</html>
